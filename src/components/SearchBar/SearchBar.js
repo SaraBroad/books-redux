@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 
 const SearchBar = () => {
   return (
-    <div class="container">
+    <div class="container" className="container">
       <Form.Group>
         <Form.Control type="text" placeholder="Enter Book Name" />
         <Button variant="primary" className="button-style">Search</Button>
