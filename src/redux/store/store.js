@@ -6,8 +6,6 @@ import createRootReducer from '../reducers/index';
 
 export const history = createBrowserHistory()
 
-// export const store = createStore(rootReducer, applyMiddleware(thunk))
-
 export default function configureStore() {
     const store = createStore(
         createRootReducer(history),
@@ -15,7 +13,7 @@ export default function configureStore() {
         compose(
             applyMiddleware(
                 thunk,
-                routerMiddleware(history) // for dispatching history actions
+                routerMiddleware(history)
                 // ... other middlewares ...
             )
         )
