@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router'
 import bookReducer from './bookReducer'
-// import actionTypes from '.././actions'
+import * as actionTypes from '../actions';
 
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
