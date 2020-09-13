@@ -1,22 +1,31 @@
-import { actionTypes } from '../actions/actionTypes';
+import { actionTypes } from "../actions/actionTypes";
 
 const initialState = {
-    books: []
-}
+  loading: false,
+  hasErrors: false,
+  books: [],
+};
 
 const bookReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.BOOKS.ADD_BOOKS: {
-            return {
-                ...state,
-                    // id: action.id,
-                    // title: action.title
-                    books: action.value
-            }
-        }
-
-    default: return state
+  switch (action.type) {
+    case actionTypes.BOOKS.ADD_BOOKS:
+      return {
+        ...state,
+        // id: action.id,
+        // title: action.title
+        books: action.value,
+      };
+    case actionTypes.BOOKS.LOAD_BOOKS: 
+      return { ...state, loading: true }
+    case actionTypes.BOOKS.LOAD_BOOKS_SUCCESS: {
+        return { loading: false, books: action.value }
     }
-}
+    case actionTypes.BOOKS.LOAD_BOOKS_FAILURE: {
+        return { ...state, loading: false, hasErrors: true }
+    }
+    default:
+      return state;
+  }
+};
 
-export default bookReducer
+export default bookReducer;
