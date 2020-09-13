@@ -1,9 +1,33 @@
 import { actionTypes } from './actionTypes';
 
-const books = {
-    addBooks: (value) => {
-        return { type: actionTypes.BOOKS.ADD_BOOKS, value}
-    }
+export function addBooksSucess(books) {
+    return { type: actionTypes.BOOKS.ADD_BOOKS, books };
+  }
+
+export function loadBooks() {
+   return { type: actionTypes.BOOKS.LOAD_BOOKS } 
 }
 
-export { books }
+export function loadBooksSuccess(books) {
+    return { type: actionTypes.BOOKS.LOAD_BOOKS_SUCCESS, payload: books}
+}
+
+export function loadBooksFailure() {
+    return { type: actionTypes.BOOKS.LOAD_BOOKS_FAILURE } 
+ }
+
+
+export function fetchBooks() {
+    return async(dispatch) => {
+        dispatch(loadBooks())
+        
+        try {
+          const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+          const data = await response.json()
+          console.log('fetchData', data)
+          dispatch(loadBooksSuccess(data))
+        } catch {
+
+        }
+    }
+}

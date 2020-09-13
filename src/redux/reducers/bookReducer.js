@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions';
+import { actionTypes } from '../actions/actionTypes';
 
 const initialState = {
     books: []
@@ -6,10 +6,12 @@ const initialState = {
 
 const bookReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.books.ADD_BOOKS: {
+        case actionTypes.BOOKS.ADD_BOOKS: {
             return {
                 ...state,
-                books
+                    // id: action.id,
+                    // title: action.title
+                    books: action.value
             }
         }
 
