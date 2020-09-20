@@ -1,13 +1,13 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
 
-const BookCard = ({books}) => {
+const BookCard = ({book}) => {
     return (
         <div className="container">
             <Card>
                 <Card.Body>
-                    <Card.Title>{books}</Card.Title>
-                    <Card.Subtitle>Subtitle</Card.Subtitle>
+                    <Card.Title>Books</Card.Title>
+                    <Card.Subtitle>{book.title}</Card.Subtitle>
                     <Card.Text>Text</Card.Text>
                 </Card.Body>
             </Card>

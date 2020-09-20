@@ -18,10 +18,11 @@ const bookReducer = (state = initialState, action) => {
     case actionTypes.BOOKS.LOAD_BOOKS: 
       return { ...state, loading: true }
     case actionTypes.BOOKS.LOAD_BOOKS_SUCCESS: {
-        return { loading: false, books: action.value }
+        return { books: action.payload, loading: false, hasErrors: false }
     }
     case actionTypes.BOOKS.LOAD_BOOKS_FAILURE: {
-        return { ...state, loading: false, hasErrors: true }
+        // return { ...state, loading: false, hasErrors: true }
+        return { loading: false, hasErrors: true }
     }
     default:
       return state;

@@ -1,39 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import SearchBar from "../components/SearchBar/SearchBar.js";
 import BookCard from "../components/BookCard/BookCard.js";
-import Card from "react-bootstrap/Card";
+import PropTypes from "prop-types";
+import * as actionTypes from "../redux/actions/actionTypes";
+import { loadBooks } from "../redux/actions/bookActions";
 
 const style = {
   textAlign: "center",
 };
 
-const HomePage = (props) => {
-  // const HomePage = ({loading, books, hasErrors}) => {
+const HomePage = ({ dispatch, loadBooks, loading, books, hasErrors }) => {
+  useEffect(() => {
+    dispatch(loadBooks());
+  }, [dispatch]);
+
+  const renderBooks = () => {
+    // if (loading) return <p>Loading books...</p>
+    // if (hasErrors) return <p>Unable to display books.</p>
+    return books.map((book) => <BookCard key={book.id} title={book.title} />)
+  }
+
   return (
     <div>
       <h1 style={style}>Redux Books</h1>
       <div className="container" className="container">
-        <Card>
-          <Card.Body>
-            <Card.Title>Books</Card.Title>
-            <Card.Subtitle>Title:</Card.Subtitle>
-            <Card.Text>Author:</Card.Text>
-          </Card.Body>
-        </Card>
+      {renderBooks()}
       </div>
       {/* <SearchBar />
-            <BookCard /> */}
+      <BookCard /> */}
     </div>
   );
 };
 
-export default HomePage;
+HomePage.propTypes = {
+    // book: PropTypes.object.isRequired,
+    books: PropTypes.array.isRequired,
+    loadBooks: PropTypes.func.isRequired,
+}
 
-// const mapStateToProps = (state) => ({
-//     loading: state.books.loading,
-//     books: state.books.books,
-//     hasErrors: state.books.hasErrors
-// })
+const mapStateToProps = (state, ownProps) => ({
+//   book,
+  books: state.books,
+  // loading: state.books.loading,
+  // hasErrors: state.books.hasErrors
+});
 
-// export default connect(mapStateToProps)(HomePage)
+const mapDispatchToProps = {
+    loadBooks
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

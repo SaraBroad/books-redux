@@ -1,24 +1,33 @@
 import { actionTypes } from "./actionTypes";
 import axios from "axios";
-import Axios from "axios";
 
 export function addBooksSucess(books) {
   return { type: actionTypes.BOOKS.ADD_BOOKS, books };
 }
 
-// export function loadBooks() {
-//   return { type: actionTypes.BOOKS.LOAD_BOOKS };
-// }
+export const getBooks = () => ({
+    type: actionTypes.BOOKS.LOAD_BOOKS,
+})
 
-export async function loadBooks(dispatch) {
+export const getBooksSuccess = (books) => ({
+    type: actionTypes.BOOKS.LOAD_BOOKS_SUCCESS,
+    payload: books,
+})
+
+export async function loadBooks() {
+    return async (dispatch) => {
+        dispatch(getBooks())
     try {
-        dispatch({ type: actionTypes.BOOKS.LOAD_BOOKS })
-        const { data } = await axios.get('/api/books')
-        dispatch({ type: actionTypes.BOOKS.LOAD_BOOKS_SUCCESS, payload: data })
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+        const data = await response.json()
+        // const { data } = await axios.get('/api/books')
+        console.log('data', data)
+        dispatch(getBooksSuccess(data))
     } catch (error) {
         dispatch({ type: actionTypes.BOOKS.LOAD_BOOKS_FAILURE, payload: error.message })
     }
   }
+}
 
 export function loadBooksSuccess(books) {
   return { type: actionTypes.BOOKS.LOAD_BOOKS_SUCCESS, payload: books };
