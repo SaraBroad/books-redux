@@ -5,7 +5,7 @@ import * as actionTypes from '../actions';
 
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
-    bookReducer
+    bookList: bookReducer
     // add reducer
     // rest of reducers
 })

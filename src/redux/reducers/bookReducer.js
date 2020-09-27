@@ -16,7 +16,7 @@ const bookReducer = (state = initialState, action) => {
         books: action.value,
       };
     case actionTypes.BOOKS.LOAD_BOOKS: 
-      return { ...state, loading: true }
+      return { ...state, loading: true, books: action.payload }
     case actionTypes.BOOKS.LOAD_BOOKS_SUCCESS: {
         return { books: action.payload, loading: false, hasErrors: false }
     }
